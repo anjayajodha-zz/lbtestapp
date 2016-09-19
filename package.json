@@ -1,0 +1,16 @@
+{
+  "name": "lbtestapp",
+  "version": "1.0.0",
+  "description": "Load Balancer Test Application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Microsoft Corporation",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.5.2",
+    "express": "^4.14.0",
+    "ip": "^1.1.3"
+  }
+}
