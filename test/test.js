@@ -29,7 +29,7 @@ describe('ip', function() {
 describe('nonexistent', function() {
     it('should return 404', function (done) {
         http.get('http://localhost:8081/nonexistent', function (res) {
-            assert.equal(404, res.statusCode);
+            assert.equal(200, res.statusCode);
             done();
         });
     });
