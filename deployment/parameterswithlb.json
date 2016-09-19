@@ -1,0 +1,54 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachines_webvm1_adminPassword": {
+            "value": "Cougars2021!"
+        },
+        "virtualMachines_webvm2_adminPassword": {
+            "value": "Cougars2021!"
+        },
+        "availabilitySets_webavset_name": {
+            "value": "webavset"
+        },
+        "virtualMachines_webvm1_name": {
+            "value": "webvmalpha"
+        },
+        "virtualMachines_webvm2_name": {
+            "value": "webvmbeta"
+        },
+        "loadBalancers_testloadbalancer_name": {
+            "value": "loadbalancer1"
+        },
+        "networkInterfaces_webvm1443_name": {
+            "value": "webvmalphanic"
+        },
+        "networkInterfaces_webvm2386_name": {
+            "value": "webvmbetanic"
+        },
+        "networkSecurityGroups_webvm1_nsg_name": {
+            "value": "webvmnsg"
+        },
+        "publicIPAddresses_testpublicip_name": {
+            "value": "lb1publicip"
+        },
+        "publicIPAddresses_webvm1_ip_name": {
+            "value": "webvmalphaip"
+        },
+        "publicIPAddresses_webvm2_ip_name": {
+            "value": "webvmbetaip"
+        },
+        "virtualNetworks_lbtest_vnet_name": {
+            "value": "lbappvnet"
+        },
+        "loadBalancers_testloadbalancer_id": {
+            "value": "lbid0"
+        },
+        "loadBalancers_testloadbalancer_id_1": {
+            "value": "lbid1"
+        },
+        "loadBalancers_testloadbalancer_id_2": {
+            "value": "lbid2"
+        }
+    }
+}
