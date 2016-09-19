@@ -9,6 +9,14 @@ app.get('/', function (request, response){
    response.render('index', {hostname: os.hostname(), ipaddress: ip.address()} );
 });
 
+app.get('/hostname', function(request, response){
+    response.send(os.hostname());
+});
+
+app.get('/ip', function(request, response){
+    response.send(ip.address());
+});
+
 app.listen(8081, function() {
     console.log("Listening on 8081");
 })
