@@ -84,7 +84,7 @@
                         "name": "[variables('webVm1Name')]",
                         "createOption": "FromImage",
                         "vhd": {
-                            "uri": "[concat('https://',variables('storageAccountName'),'.',variables('storageEndpoint'),/vhds/', variables('webVm1Name'),'osdisk.vhd')]"
+                            "uri": "[concat('https://',variables('storageAccountName'),'.',variables('storageEndpoint'),'/vhds/', variables('webVm1Name'),'osdisk.vhd')]"
                         },
                         "caching": "ReadWrite"
                     },
@@ -138,7 +138,7 @@
                         "name": "[variables('webVm2Name')]",
                         "createOption": "FromImage",
                         "vhd": {
-                            "uri": "[concat('https://722088[parameters('location')].blob.core.windows.net/vhds/', variables('webVm2Name'),'201681914588.vhd')]"
+                            "uri": "[concat('https://',variables('storageAccountName'),'.',variables('storageEndpoint'),'/vhds/', variables('webVm2Name'),'osdisk.vhd')]"
                         },
                         "caching": "ReadWrite"
                     },
