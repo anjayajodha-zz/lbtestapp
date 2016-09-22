@@ -19,10 +19,10 @@
             "type": "string"
         },
         "location": {
-            "defaultValue": "[parameters('location')]",
+            "defaultValue": "westus",
             "allowedValues" : [
                 "local",
-                "[parameters('location')]"
+                "westus"
             ],
             "type": "string"
         }
