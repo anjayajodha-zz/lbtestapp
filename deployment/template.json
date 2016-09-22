@@ -63,7 +63,7 @@
         },
         {
             "type": "Microsoft.Compute/virtualMachines",
-            "name": "[variables(''webVm1Name'')]",
+            "name": "[variables('webVm1Name')]",
             "apiVersion": "2015-06-15",
             "location": "[parameters('location')]",
             "properties": {
@@ -81,17 +81,17 @@
                         "version": "latest"
                     },
                     "osDisk": {
-                        "name": "[variables(''webVm1Name')]",
+                        "name": "[variables('webVm1Name')]",
                         "createOption": "FromImage",
                         "vhd": {
-                            "uri": "[concat('https://',variables('storageAccountName'),'.',variables('storageEndpoint'),/vhds/', variables(''webVm1Name'),'osdisk.vhd')]"
+                            "uri": "[concat('https://',variables('storageAccountName'),'.',variables('storageEndpoint'),/vhds/', variables('webVm1Name'),'osdisk.vhd')]"
                         },
                         "caching": "ReadWrite"
                     },
                     "dataDisks": []
                 },
                 "osProfile": {
-                    "computerName": "[variables(''webVm1Name')]",
+                    "computerName": "[variables('webVm1Name')]",
                     "adminUsername": "anjay",
                     "linuxConfiguration": {
                         "disablePasswordAuthentication": false
@@ -357,9 +357,9 @@
         },
         {
             "type": "Microsoft.Compute/virtualMachines/extensions",
-            "name": "[concat(variables(''webVm1Name'),'/LinuxCustomScriptExtension')]",
+            "name": "[concat(variables('webVm1Name'),'/LinuxCustomScriptExtension')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Compute/virtualMachines', variables(''webVm1Name'))]"
+                "[resourceId('Microsoft.Compute/virtualMachines', variables('webVm1Name'))]"
             ],
             "apiVersion": "2015-06-15",
             "location": "[resourceGroup().location]",
