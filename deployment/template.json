@@ -10,57 +10,84 @@
             "defaultValue": null,
             "type": "SecureString"
         },
-        "availabilitySets_webavset_name": {
+        /*"avsetName": {
             "defaultValue": "webavset",
             "type": "String"
-        },
-        "virtualMachines_webvm1_name": {
+        },*/
+        /*"virtualMachines_webvm1_name": {
             "defaultValue": "webvm1",
             "type": "String"
-        },
-        "virtualMachines_webvm2_name": {
+        },*/
+        /*"webVm2Name": {
             "defaultValue": "webvm2",
             "type": "String"
-        },
-        "loadBalancers_testloadbalancer_name": {
+        },*/
+        /*"loadBalancers_testloadbalancer_name": {
             "defaultValue": "testloadbalancer",
             "type": "String"
-        },
-        "networkInterfaces_webvm1443_name": {
+        },*/
+        /*"webNic1Name": {
             "defaultValue": "webvm1443",
             "type": "String"
-        },
-        "networkInterfaces_webvm2386_name": {
+        },*/
+        /*"webNic2Name": {
             "defaultValue": "webvm2386",
             "type": "String"
-        },
-        "networkSecurityGroups_webvm1_nsg_name": {
+        },*/
+        /*"nsgName": {
             "defaultValue": "webvm1-nsg",
             "type": "String"
-        },
-        "publicIPAddresses_testpublicip_name": {
+        },*/
+        /*"publicIPAddresses_testpublicip_name": {
             "defaultValue": "testpublicip",
             "type": "String"
-        },
-        "publicIPAddresses_webvm1_ip_name": {
+        },*/
+        /*"web1PublicIpName": {
             "defaultValue": "webvm1-ip",
             "type": "String"
         },
-        "publicIPAddresses_webvm2_ip_name": {
+        "web2PublicIpName": {
             "defaultValue": "webvm2-ip",
             "type": "String"
-        },
-        "virtualNetworks_lbtest_vnet_name": {
+        },*/
+        /*"vNetName": {
             "defaultValue": "lbtest-vnet",
             "type": "String"
+        },*/
+        "storageEndpoint": {
+            "defaultValue": "blob.azurestack.local",
+            "allowedValues": [
+                "blob.azurestack.local",
+                "blob.core.windows.net"
+            ],
+            "type": "string"
+        },
+        "location": {
+            "defaultValue": "westus",
+            "allowedValues" : [
+                "local",
+                "westus"
+            ],
+            "type": "string"
         }
     },
-    "variables": {},
+    "variables": {
+        "storageAccountName" : "[concat('storage', uniqueString(resourceGroup().id)]",
+        "webVm1Name" : "[concat('weblayer1', uniqueString(resourceGroup().id)]",
+        "webVm2Name" : "[concat('weblayer2', uniqueString(resourceGroup().id)]",
+        "vNetName" :   "[concat('vnet', uniqueString(resourceGroup().id)]",
+        "web1PublicIpName" : "[concat('webip1', uniqueString(resourceGroup().id)]",
+        "web2PublicIpName" : "[concat('webip2', uniqueString(resourceGroup().id)]",
+        "nsgName" : "[concat('nsg', uniqueString(resourceGroup().id)]",
+        "webNic1Name" :"[concat('web1Nic', uniqueString(resourceGroup().id)]",
+        "webNic2Name" :"[concat('web2Nic', uniqueString(resourceGroup().id)]",
+        "avsetName" : "[concat('avsetName', uniqueString(resourceGroup().id)]"
+    },
     "resources": [
         {
-            "comments": "Generalized from resource: '/subscriptions/72278c0d-4491-4d7e-a9d8-96fe9aa648b9/resourceGroups/lbtest/providers/Microsoft.Compute/availabilitySets/webavset'.",
+            //"comments": "Generalized from resource: '/subscriptions/72278c0d-4491-4d7e-a9d8-96fe9aa648b9/resourceGroups/lbtest/providers/Microsoft.Compute/availabilitySets/webavset'.",
             "type": "Microsoft.Compute/availabilitySets",
-            "name": "[parameters('availabilitySets_webavset_name')]",
+            "name": "[variables('avsetName')]",
             "apiVersion": "2015-06-15",
             "location": "westus",
             "properties": {
@@ -71,17 +98,26 @@
             "dependsOn": []
         },
         {
-            "comments": "Generalized from resource: '/subscriptions/72278c0d-4491-4d7e-a9d8-96fe9aa648b9/resourceGroups/lbtest/providers/Microsoft.Compute/virtualMachines/webvm1'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "name": "[variables('storageAccontName')]",
+            "apiVersion": "2015-06-15",
+            "location": "[variables('location')]",
+            "properties": {
+                "accountType": "[variables('storageAccountType')]"
+            }
+        },
+        {
+            //"comments": "Generalized from resource: '/subscriptions/72278c0d-4491-4d7e-a9d8-96fe9aa648b9/resourceGroups/lbtest/providers/Microsoft.Compute/virtualMachines/webvm1'.",
             "type": "Microsoft.Compute/virtualMachines",
-            "name": "[parameters('virtualMachines_webvm1_name')]",
+            "name": "[variables(''webVm1Name'')]",
             "apiVersion": "2015-06-15",
             "location": "westus",
             "properties": {
                 "availabilitySet": {
-                    "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_webavset_name'))]"
+                    "id": "[resourceId('Microsoft.Compute/availabilitySets', variables('avsetName'))]"
                 },
                 "hardwareProfile": {
-                    "vmSize": "Standard_D1"
+                    "vmSize": "Standard_A1"
                 },
                 "storageProfile": {
                     "imageReference": {
@@ -91,50 +127,51 @@
                         "version": "latest"
                     },
                     "osDisk": {
-                        "name": "[parameters('virtualMachines_webvm1_name')]",
+                        "name": "[variables(''webVm1Name')]",
                         "createOption": "FromImage",
                         "vhd": {
-                            "uri": "[concat('https://722088westus.blob.core.windows.net/vhds/', parameters('virtualMachines_webvm1_name'),'2016819143722.vhd')]"
+                            "uri": "[concat('https://',variables('storageAccountName'),'.',variables('storageEndpoint'),/vhds/', variables(''webVm1Name'),'osdisk.vhd')]"
                         },
                         "caching": "ReadWrite"
                     },
                     "dataDisks": []
                 },
                 "osProfile": {
-                    "computerName": "[parameters('virtualMachines_webvm1_name')]",
+                    "computerName": "[variables(''webVm1Name')]",
                     "adminUsername": "anjay",
                     "linuxConfiguration": {
                         "disablePasswordAuthentication": false
                     },
                     "secrets": [],
-                    "adminPassword": "[parameters('virtualMachines_webvm1_adminPassword')]"
+                    "adminPassword": "[variables('virtualMachines_webvm1_adminPassword')]"
                 },
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_webvm1443_name'))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('webNic1Name'))]"
                         }
                     ]
                 }
             },
             "resources": [],
             "dependsOn": [
-                "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_webavset_name'))]",
-                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_webvm1443_name'))]"
+                "[resourceId('Microsoft.Compute/availabilitySets', variables('avsetName'))]",
+                "[resourceId('Microsoft.Network/networkInterfaces', variables('webNic1Name'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
             ]
         },
         {
             "comments": "Generalized from resource: '/subscriptions/72278c0d-4491-4d7e-a9d8-96fe9aa648b9/resourceGroups/lbtest/providers/Microsoft.Compute/virtualMachines/webvm2'.",
             "type": "Microsoft.Compute/virtualMachines",
-            "name": "[parameters('virtualMachines_webvm2_name')]",
+            "name": "[variables('webVm2Name')]",
             "apiVersion": "2015-06-15",
             "location": "westus",
             "properties": {
                 "availabilitySet": {
-                    "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_webavset_name'))]"
+                    "id": "[resourceId('Microsoft.Compute/availabilitySets', variables('avsetName'))]"
                 },
                 "hardwareProfile": {
-                    "vmSize": "Standard_D1"
+                    "vmSize": "Standard_A1"
                 },
                 "storageProfile": {
                     "imageReference": {
@@ -144,43 +181,43 @@
                         "version": "latest"
                     },
                     "osDisk": {
-                        "name": "[parameters('virtualMachines_webvm2_name')]",
+                        "name": "[variables('webVm2Name')]",
                         "createOption": "FromImage",
                         "vhd": {
-                            "uri": "[concat('https://722088westus.blob.core.windows.net/vhds/', parameters('virtualMachines_webvm2_name'),'201681914588.vhd')]"
+                            "uri": "[concat('https://722088westus.blob.core.windows.net/vhds/', variables('webVm2Name'),'201681914588.vhd')]"
                         },
                         "caching": "ReadWrite"
                     },
                     "dataDisks": []
                 },
                 "osProfile": {
-                    "computerName": "[parameters('virtualMachines_webvm2_name')]",
+                    "computerName": "[variables('webVm2Name')]",
                     "adminUsername": "anjay",
                     "linuxConfiguration": {
                         "disablePasswordAuthentication": false
                     },
                     "secrets": [],
-                    "adminPassword": "[parameters('virtualMachines_webvm2_adminPassword')]"
+                    "adminPassword": "[variables('virtualMachines_webvm2_adminPassword')]"
                 },
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_webvm2386_name'))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('webNic2Name'))]"
                         }
                     ]
                 }
             },
             "resources": [],
             "dependsOn": [
-                "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_webavset_name'))]",
-                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_webvm2386_name'))]"
+                "[resourceId('Microsoft.Compute/availabilitySets', variables('avsetName'))]",
+                "[resourceId('Microsoft.Network/networkInterfaces', variables('webNic2Name'))]"
             ]
         },
-        {
+        /*{
             "comments": "Generalized from resource: '/subscriptions/72278c0d-4491-4d7e-a9d8-96fe9aa648b9/resourceGroups/lbtest/providers/Microsoft.Network/loadBalancers/testloadbalancer'.",
             "type": "Microsoft.Network/loadBalancers",
-            "name": "[parameters('loadBalancers_testloadbalancer_name')]",
-            "apiVersion": "2016-03-30",
+            "name": "[variables('loadBalancers_testloadbalancer_name')]",
+            "apiVersion": "2015-06-15",
             "location": "westus",
             "properties": {
                 "frontendIPConfigurations": [
@@ -189,7 +226,7 @@
                         "properties": {
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIPAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_testpublicip_name'))]"
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddresses_testpublicip_name'))]"
                             }
                         }
                     }
@@ -207,14 +244,14 @@
             },
             "resources": [],
             "dependsOn": [
-                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_testpublicip_name'))]"
+                "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddresses_testpublicip_name'))]"
             ]
-        },
+        },*/
         {
             "comments": "Generalized from resource: '/subscriptions/72278c0d-4491-4d7e-a9d8-96fe9aa648b9/resourceGroups/lbtest/providers/Microsoft.Network/networkInterfaces/webvm1443'.",
             "type": "Microsoft.Network/networkInterfaces",
-            "name": "[parameters('networkInterfaces_webvm1443_name')]",
-            "apiVersion": "2016-03-30",
+            "name": "[variables('webNic1Name')]",
+            "apiVersion": "2015-06-15",
             "location": "westus",
             "properties": {
                 "ipConfigurations": [
@@ -224,10 +261,10 @@
                             "privateIPAddress": "10.12.0.4",
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIPAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_webvm1_ip_name'))]"
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('web1PublicIpName'))]"
                             },
                             "subnet": {
-                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_lbtest_vnet_name')), '/subnets/default')]"
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', variables('vNetName')), '/subnets/default')]"
                             }
                         }
                     }
@@ -237,21 +274,15 @@
                 },
                 "enableIPForwarding": false,
                 "networkSecurityGroup": {
-                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_webvm1_nsg_name'))]"
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('nsgName'))]"
                 }
-            },
-            "resources": [],
-            "dependsOn": [
-                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_webvm1_ip_name'))]",
-                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_lbtest_vnet_name'))]",
-                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_webvm1_nsg_name'))]"
-            ]
+            }
         },
         {
             "comments": "Generalized from resource: '/subscriptions/72278c0d-4491-4d7e-a9d8-96fe9aa648b9/resourceGroups/lbtest/providers/Microsoft.Network/networkInterfaces/webvm2386'.",
             "type": "Microsoft.Network/networkInterfaces",
-            "name": "[parameters('networkInterfaces_webvm2386_name')]",
-            "apiVersion": "2016-03-30",
+            "name": "[variables('webNic2Name')]",
+            "apiVersion": "2015-06-15",
             "location": "westus",
             "properties": {
                 "ipConfigurations": [
@@ -261,10 +292,10 @@
                             "privateIPAddress": "10.12.0.5",
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIPAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_webvm2_ip_name'))]"
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('web2PublicIpName'))]"
                             },
                             "subnet": {
-                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_lbtest_vnet_name')), '/subnets/default')]"
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', variables('vNetName')), '/subnets/default')]"
                             }
                         }
                     }
@@ -274,21 +305,21 @@
                 },
                 "enableIPForwarding": false,
                 "networkSecurityGroup": {
-                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_webvm1_nsg_name'))]"
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('nsgName'))]"
                 }
             },
             "resources": [],
             "dependsOn": [
-                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_webvm2_ip_name'))]",
-                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_lbtest_vnet_name'))]",
-                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_webvm1_nsg_name'))]"
+                "[resourceId('Microsoft.Network/publicIPAddresses', variables('web2PublicIpName'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', variables('vNetName'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', variables('nsgName'))]"
             ]
         },
         {
             "comments": "Generalized from resource: '/subscriptions/72278c0d-4491-4d7e-a9d8-96fe9aa648b9/resourceGroups/lbtest/providers/Microsoft.Network/networkSecurityGroups/webvm1-nsg'.",
             "type": "Microsoft.Network/networkSecurityGroups",
-            "name": "[parameters('networkSecurityGroups_webvm1_nsg_name')]",
-            "apiVersion": "2016-03-30",
+            "name": "[variables('nsgName')]",
+            "apiVersion": "2015-06-15",
             "location": "westus",
             "properties": {
                 "securityRules": [
@@ -336,11 +367,11 @@
             "resources": [],
             "dependsOn": []
         },
-        {
+        /*{
             "comments": "Generalized from resource: '/subscriptions/72278c0d-4491-4d7e-a9d8-96fe9aa648b9/resourceGroups/lbtest/providers/Microsoft.Network/publicIPAddresses/testpublicip'.",
             "type": "Microsoft.Network/publicIPAddresses",
-            "name": "[parameters('publicIPAddresses_testpublicip_name')]",
-            "apiVersion": "2016-03-30",
+            "name": "[variables('publicIPAddresses_testpublicip_name')]",
+            "apiVersion": "2015-06-15",
             "location": "westus",
             "properties": {
                 "publicIPAllocationMethod": "Dynamic",
@@ -348,12 +379,12 @@
             },
             "resources": [],
             "dependsOn": []
-        },
+        },*/
         {
             "comments": "Generalized from resource: '/subscriptions/72278c0d-4491-4d7e-a9d8-96fe9aa648b9/resourceGroups/lbtest/providers/Microsoft.Network/publicIPAddresses/webvm1-ip'.",
             "type": "Microsoft.Network/publicIPAddresses",
-            "name": "[parameters('publicIPAddresses_webvm1_ip_name')]",
-            "apiVersion": "2016-03-30",
+            "name": "[variables('web1PublicIpName')]",
+            "apiVersion": "2015-06-15",
             "location": "westus",
             "properties": {
                 "publicIPAllocationMethod": "Dynamic",
@@ -365,8 +396,8 @@
         {
             "comments": "Generalized from resource: '/subscriptions/72278c0d-4491-4d7e-a9d8-96fe9aa648b9/resourceGroups/lbtest/providers/Microsoft.Network/publicIPAddresses/webvm2-ip'.",
             "type": "Microsoft.Network/publicIPAddresses",
-            "name": "[parameters('publicIPAddresses_webvm2_ip_name')]",
-            "apiVersion": "2016-03-30",
+            "name": "[variables('web2PublicIpName')]",
+            "apiVersion": "2015-06-15",
             "location": "westus",
             "properties": {
                 "publicIPAllocationMethod": "Dynamic",
@@ -378,8 +409,8 @@
         {
             "comments": "Generalized from resource: '/subscriptions/72278c0d-4491-4d7e-a9d8-96fe9aa648b9/resourceGroups/lbtest/providers/Microsoft.Network/virtualNetworks/lbtest-vnet'.",
             "type": "Microsoft.Network/virtualNetworks",
-            "name": "[parameters('virtualNetworks_lbtest_vnet_name')]",
-            "apiVersion": "2016-03-30",
+            "name": "[variables('vNetName')]",
+            "apiVersion": "2015-06-15",
             "location": "westus",
             "properties": {
                 "addressSpace": {
@@ -401,9 +432,9 @@
         },
         {
             "type": "Microsoft.Compute/virtualMachines/extensions",
-            "name": "[concat(parameters('virtualMachines_webvm2_name'),'/LinuxCustomScriptExtension')]",
+            "name": "[concat(variables('webVm2Name'),'/LinuxCustomScriptExtension')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachines_webvm2_name'))]"
+                "[resourceId('Microsoft.Compute/virtualMachines', variables('webVm2Name'))]"
             ],
             "apiVersion": "2015-06-15",
             "location": "[resourceGroup().location]",
@@ -419,9 +450,9 @@
         },
         {
             "type": "Microsoft.Compute/virtualMachines/extensions",
-            "name": "[concat(parameters('virtualMachines_webvm1_name'),'/LinuxCustomScriptExtension')]",
+            "name": "[concat(variables(''webVm1Name'),'/LinuxCustomScriptExtension')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachines_webvm1_name'))]"
+                "[resourceId('Microsoft.Compute/virtualMachines', variables(''webVm1Name'))]"
             ],
             "apiVersion": "2015-06-15",
             "location": "[resourceGroup().location]",

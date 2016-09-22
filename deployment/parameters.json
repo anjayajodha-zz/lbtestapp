@@ -3,12 +3,12 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "virtualMachines_webvm1_adminPassword": {
-            "value": "Cougars2021!"
+            "value": "ciK3YkuDPbaHRmLi"
         },
         "virtualMachines_webvm2_adminPassword": {
-            "value": "Cougars2021!"
+            "value": "CohM23WJ9jzQ1Bsk"
         },
-        "availabilitySets_webavset_name": {
+        /*"availabilitySets_webavset_name": {
             "value": "webavset"
         },
         "virtualMachines_webvm1_name": {
@@ -40,6 +40,12 @@
         },
         "virtualNetworks_lbtest_vnet_name": {
             "value": "lbappvnet"
+        }*/
+        "storageEndpoint": {
+            "value" : "blob.core.windows.net"
+        },
+        "location": {
+           "value" : "westus"
         }
     }
 }
