@@ -37,7 +37,8 @@
         "nsgName" : "[concat('nsg', uniqueString(resourceGroup().id))]",
         "webNic1Name" :"[concat('web1Nic', uniqueString(resourceGroup().id))]",
         "webNic2Name" :"[concat('web2Nic', uniqueString(resourceGroup().id))]",
-        "avsetName" : "[concat('avsetName', uniqueString(resourceGroup().id))]"
+        "avsetName" : "[concat('avsetName', uniqueString(resourceGroup().id))]",
+        "storageAccountType" : "Standard-LRS"
     },
     "resources": [
         {
