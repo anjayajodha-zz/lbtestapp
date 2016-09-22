@@ -10,50 +10,6 @@
             "defaultValue": null,
             "type": "SecureString"
         },
-        /*"avsetName": {
-            "defaultValue": "webavset",
-            "type": "String"
-        },*/
-        /*"virtualMachines_webvm1_name": {
-            "defaultValue": "webvm1",
-            "type": "String"
-        },*/
-        /*"webVm2Name": {
-            "defaultValue": "webvm2",
-            "type": "String"
-        },*/
-        /*"loadBalancers_testloadbalancer_name": {
-            "defaultValue": "testloadbalancer",
-            "type": "String"
-        },*/
-        /*"webNic1Name": {
-            "defaultValue": "webvm1443",
-            "type": "String"
-        },*/
-        /*"webNic2Name": {
-            "defaultValue": "webvm2386",
-            "type": "String"
-        },*/
-        /*"nsgName": {
-            "defaultValue": "webvm1-nsg",
-            "type": "String"
-        },*/
-        /*"publicIPAddresses_testpublicip_name": {
-            "defaultValue": "testpublicip",
-            "type": "String"
-        },*/
-        /*"web1PublicIpName": {
-            "defaultValue": "webvm1-ip",
-            "type": "String"
-        },
-        "web2PublicIpName": {
-            "defaultValue": "webvm2-ip",
-            "type": "String"
-        },*/
-        /*"vNetName": {
-            "defaultValue": "lbtest-vnet",
-            "type": "String"
-        },*/
         "storageEndpoint": {
             "defaultValue": "blob.azurestack.local",
             "allowedValues": [
@@ -85,7 +41,6 @@
     },
     "resources": [
         {
-            //"comments": "Generalized from resource: '/subscriptions/72278c0d-4491-4d7e-a9d8-96fe9aa648b9/resourceGroups/lbtest/providers/Microsoft.Compute/availabilitySets/webavset'.",
             "type": "Microsoft.Compute/availabilitySets",
             "name": "[variables('avsetName')]",
             "apiVersion": "2015-06-15",
@@ -107,7 +62,6 @@
             }
         },
         {
-            //"comments": "Generalized from resource: '/subscriptions/72278c0d-4491-4d7e-a9d8-96fe9aa648b9/resourceGroups/lbtest/providers/Microsoft.Compute/virtualMachines/webvm1'.",
             "type": "Microsoft.Compute/virtualMachines",
             "name": "[variables(''webVm1Name'')]",
             "apiVersion": "2015-06-15",
@@ -213,40 +167,6 @@
                 "[resourceId('Microsoft.Network/networkInterfaces', variables('webNic2Name'))]"
             ]
         },
-        /*{
-            "comments": "Generalized from resource: '/subscriptions/72278c0d-4491-4d7e-a9d8-96fe9aa648b9/resourceGroups/lbtest/providers/Microsoft.Network/loadBalancers/testloadbalancer'.",
-            "type": "Microsoft.Network/loadBalancers",
-            "name": "[variables('loadBalancers_testloadbalancer_name')]",
-            "apiVersion": "2015-06-15",
-            "location": "westus",
-            "properties": {
-                "frontendIPConfigurations": [
-                    {
-                        "name": "LoadBalancerFrontEnd",
-                        "properties": {
-                            "privateIPAllocationMethod": "Dynamic",
-                            "publicIPAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddresses_testpublicip_name'))]"
-                            }
-                        }
-                    }
-                ],
-                "backendAddressPools": [
-                    {
-                        "name": "backendpool"
-                    }
-                ],
-                "loadBalancingRules": [],
-                "probes": [],
-                "inboundNatRules": [],
-                "outboundNatRules": [],
-                "inboundNatPools": []
-            },
-            "resources": [],
-            "dependsOn": [
-                "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddresses_testpublicip_name'))]"
-            ]
-        },*/
         {
             "comments": "Generalized from resource: '/subscriptions/72278c0d-4491-4d7e-a9d8-96fe9aa648b9/resourceGroups/lbtest/providers/Microsoft.Network/networkInterfaces/webvm1443'.",
             "type": "Microsoft.Network/networkInterfaces",
@@ -367,19 +287,6 @@
             "resources": [],
             "dependsOn": []
         },
-        /*{
-            "comments": "Generalized from resource: '/subscriptions/72278c0d-4491-4d7e-a9d8-96fe9aa648b9/resourceGroups/lbtest/providers/Microsoft.Network/publicIPAddresses/testpublicip'.",
-            "type": "Microsoft.Network/publicIPAddresses",
-            "name": "[variables('publicIPAddresses_testpublicip_name')]",
-            "apiVersion": "2015-06-15",
-            "location": "westus",
-            "properties": {
-                "publicIPAllocationMethod": "Dynamic",
-                "idleTimeoutInMinutes": 4
-            },
-            "resources": [],
-            "dependsOn": []
-        },*/
         {
             "comments": "Generalized from resource: '/subscriptions/72278c0d-4491-4d7e-a9d8-96fe9aa648b9/resourceGroups/lbtest/providers/Microsoft.Network/publicIPAddresses/webvm1-ip'.",
             "type": "Microsoft.Network/publicIPAddresses",
