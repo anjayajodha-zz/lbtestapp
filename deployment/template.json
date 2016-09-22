@@ -19,10 +19,10 @@
             "type": "string"
         },
         "location": {
-            "defaultValue": "westus",
+            "defaultValue": "[parameters('location')]",
             "allowedValues" : [
                 "local",
-                "westus"
+                "[parameters('location')]"
             ],
             "type": "string"
         }
@@ -44,7 +44,7 @@
             "type": "Microsoft.Compute/availabilitySets",
             "name": "[variables('avsetName')]",
             "apiVersion": "2015-06-15",
-            "location": "westus",
+            "location": "[parameters('location')]",
             "properties": {
                 "platformUpdateDomainCount": 1,
                 "platformFaultDomainCount": 1
@@ -56,7 +56,7 @@
             "type": "Microsoft.Storage/storageAccounts",
             "name": "[variables('storageAccountName')]",
             "apiVersion": "2015-06-15",
-            "location": "[variables('location')]",
+            "location": "[parameters('location')]",
             "properties": {
                 "accountType": "[variables('storageAccountType')]"
             }
@@ -65,7 +65,7 @@
             "type": "Microsoft.Compute/virtualMachines",
             "name": "[variables(''webVm1Name'')]",
             "apiVersion": "2015-06-15",
-            "location": "westus",
+            "location": "[parameters('location')]",
             "properties": {
                 "availabilitySet": {
                     "id": "[resourceId('Microsoft.Compute/availabilitySets', variables('avsetName'))]"
@@ -119,7 +119,7 @@
             "type": "Microsoft.Compute/virtualMachines",
             "name": "[variables('webVm2Name')]",
             "apiVersion": "2015-06-15",
-            "location": "westus",
+            "location": "[parameters('location')]",
             "properties": {
                 "availabilitySet": {
                     "id": "[resourceId('Microsoft.Compute/availabilitySets', variables('avsetName'))]"
@@ -138,7 +138,7 @@
                         "name": "[variables('webVm2Name')]",
                         "createOption": "FromImage",
                         "vhd": {
-                            "uri": "[concat('https://722088westus.blob.core.windows.net/vhds/', variables('webVm2Name'),'201681914588.vhd')]"
+                            "uri": "[concat('https://722088[parameters('location')].blob.core.windows.net/vhds/', variables('webVm2Name'),'201681914588.vhd')]"
                         },
                         "caching": "ReadWrite"
                     },
@@ -172,7 +172,7 @@
             "type": "Microsoft.Network/networkInterfaces",
             "name": "[variables('webNic1Name')]",
             "apiVersion": "2015-06-15",
-            "location": "westus",
+            "location": "[parameters('location')]",
             "properties": {
                 "ipConfigurations": [
                     {
@@ -203,7 +203,7 @@
             "type": "Microsoft.Network/networkInterfaces",
             "name": "[variables('webNic2Name')]",
             "apiVersion": "2015-06-15",
-            "location": "westus",
+            "location": "[parameters('location')]",
             "properties": {
                 "ipConfigurations": [
                     {
@@ -240,7 +240,7 @@
             "type": "Microsoft.Network/networkSecurityGroups",
             "name": "[variables('nsgName')]",
             "apiVersion": "2015-06-15",
-            "location": "westus",
+            "location": "[parameters('location')]",
             "properties": {
                 "securityRules": [
                     {
@@ -292,7 +292,7 @@
             "type": "Microsoft.Network/publicIPAddresses",
             "name": "[variables('web1PublicIpName')]",
             "apiVersion": "2015-06-15",
-            "location": "westus",
+            "location": "[parameters('location')]",
             "properties": {
                 "publicIPAllocationMethod": "Dynamic",
                 "idleTimeoutInMinutes": 4
@@ -305,7 +305,7 @@
             "type": "Microsoft.Network/publicIPAddresses",
             "name": "[variables('web2PublicIpName')]",
             "apiVersion": "2015-06-15",
-            "location": "westus",
+            "location": "[parameters('location')]",
             "properties": {
                 "publicIPAllocationMethod": "Dynamic",
                 "idleTimeoutInMinutes": 4
@@ -318,7 +318,7 @@
             "type": "Microsoft.Network/virtualNetworks",
             "name": "[variables('vNetName')]",
             "apiVersion": "2015-06-15",
-            "location": "westus",
+            "location": "[parameters('location')]",
             "properties": {
                 "addressSpace": {
                     "addressPrefixes": [
