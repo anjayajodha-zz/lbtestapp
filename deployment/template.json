@@ -30,7 +30,7 @@
     "variables": {
         "storageAccountName" : "[concat('storage', uniqueString(resourceGroup().id))]",
         "webVm1Name" : "[concat('weblayer1', uniqueString(resourceGroup().id))]",
-        "webVm2Name" : "[concat('weblayer2', uniqueString(resourceGroup().id)))]",
+        "webVm2Name" : "[concat('weblayer2', uniqueString(resourceGroup().id))]",
         "vNetName" :   "[concat('vnet', uniqueString(resourceGroup().id))]",
         "web1PublicIpName" : "[concat('webip1', uniqueString(resourceGroup().id))]",
         "web2PublicIpName" : "[concat('webip2', uniqueString(resourceGroup().id))]",
