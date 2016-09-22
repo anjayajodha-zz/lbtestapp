@@ -54,7 +54,7 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts",
-            "name": "[variables('storageAccontName')]",
+            "name": "[variables('storageAccountName')]",
             "apiVersion": "2015-06-15",
             "location": "[variables('location')]",
             "properties": {
