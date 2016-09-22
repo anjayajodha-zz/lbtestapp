@@ -197,7 +197,12 @@
                 "networkSecurityGroup": {
                     "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('nsgName'))]"
                 }
-            }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', variables('web1PublicIpName'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', variables('vNetName'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', variables('nsgName'))]"
+            ]
         },
         {
             "comments": "Generalized from resource: '/subscriptions/72278c0d-4491-4d7e-a9d8-96fe9aa648b9/resourceGroups/lbtest/providers/Microsoft.Network/networkInterfaces/webvm2386'.",
