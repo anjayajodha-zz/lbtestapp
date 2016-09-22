@@ -246,7 +246,7 @@
                     {
                         "name": "default-allow-ssh",
                         "properties": {
-                            "protocol": "TCP",
+                            "protocol": "Tcp",
                             "sourcePortRange": "*",
                             "destinationPortRange": "22",
                             "sourceAddressPrefix": "*",
