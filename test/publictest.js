@@ -7,8 +7,14 @@ describe('app', function() {
 });
 
 describe('hostname', function() {
-    it('should return 200', function (done) {
-        http.get('http://' + ipaddr.ipAddress + '/hostname', function (res) {
+    it('host 1 hostname should return 200', function (done) {
+        http.get('http://' + ipaddr[0].ipAddress + '/hostname', function (res) {
+            assert.equal(200, res.statusCode);
+            done();
+        });
+    });
+    it('host 2 hostname should return 200', function (done) {
+        http.get('http://' + ipaddr[1].ipAddress + '/hostname', function (res) {
             assert.equal(200, res.statusCode);
             done();
         });
@@ -16,8 +22,14 @@ describe('hostname', function() {
 });
 
 describe('ip', function() {
-    it('should return 200', function (done) {
-        http.get('http://' + ipaddr.ipAddress + '/hostname', function (res) {
+    it('host 1 ip should return 200', function (done) {
+        http.get('http://' + ipaddr[0].ipAddress + '/ip', function (res) {
+            assert.equal(200, res.statusCode);
+            done();
+        });
+    });
+    it('host 2 ip should return 200', function (done) {
+        http.get('http://' + ipaddr[1].ipAddress + '/hostname', function (res) {
             assert.equal(200, res.statusCode);
             done();
         });
@@ -25,8 +37,14 @@ describe('ip', function() {
 });
 
 describe('nonexistent', function() {
-    it('should return 404', function (done) {
-        http.get('http://' + ipaddr.ipAddress + '/hostname', function (res) {
+    it('host 1 nonexistent should return 404', function (done) {
+        http.get('http://' + ipaddr[0].ipAddress + '/nonexistent', function (res) {
+            assert.equal(404, res.statusCode);
+            done();
+        });
+    });
+    it('host 2 nonexistent should return 200', function (done) {
+        http.get('http://' + ipaddr[1].ipAddress + '/nonexistent', function (res) {
             assert.equal(404, res.statusCode);
             done();
         });
@@ -34,10 +52,16 @@ describe('nonexistent', function() {
 });
 
 describe('home', function() {
-    it('should return 200', function (done) {
-        http.get('http://' + ipaddr.ipAddress + '/hostname', function (res) {
+    it('host 1 home should return 200', function (done) {
+        http.get('http://' + ipaddr[0].ipAddress + '/', function (res) {
             assert.equal(200, res.statusCode);
             done();
         });
     });
+    it('host 2 home should return 200', function (done) {
+        http.get('http://' + ipaddr[1].ipAddress + '/', function (res) {
+            assert.equal(200, res.statusCode);
+            done();
+        });
+    });    
 });
