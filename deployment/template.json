@@ -4,11 +4,11 @@
     "parameters": {
         "virtualMachines_webvm1_adminPassword": {
             "defaultValue": null,
-            "type": "SecureString"
+            "type": "securestring"
         },
         "virtualMachines_webvm2_adminPassword": {
             "defaultValue": null,
-            "type": "SecureString"
+            "type": "securestring"
         },
         "storageEndpoint": {
             "defaultValue": "blob.azurestack.local",
@@ -28,16 +28,16 @@
         }
     },
     "variables": {
-        "storageAccountName" : "[concat('storage', uniqueString(resourceGroup().id)]",
-        "webVm1Name" : "[concat('weblayer1', uniqueString(resourceGroup().id)]",
-        "webVm2Name" : "[concat('weblayer2', uniqueString(resourceGroup().id)]",
-        "vNetName" :   "[concat('vnet', uniqueString(resourceGroup().id)]",
-        "web1PublicIpName" : "[concat('webip1', uniqueString(resourceGroup().id)]",
-        "web2PublicIpName" : "[concat('webip2', uniqueString(resourceGroup().id)]",
-        "nsgName" : "[concat('nsg', uniqueString(resourceGroup().id)]",
-        "webNic1Name" :"[concat('web1Nic', uniqueString(resourceGroup().id)]",
-        "webNic2Name" :"[concat('web2Nic', uniqueString(resourceGroup().id)]",
-        "avsetName" : "[concat('avsetName', uniqueString(resourceGroup().id)]"
+        "storageAccountName" : "[concat('storage', uniqueString(resourceGroup().id))]",
+        "webVm1Name" : "[concat('weblayer1', uniqueString(resourceGroup().id))]",
+        "webVm2Name" : "[concat('weblayer2', uniqueString(resourceGroup().id)))]",
+        "vNetName" :   "[concat('vnet', uniqueString(resourceGroup().id))]",
+        "web1PublicIpName" : "[concat('webip1', uniqueString(resourceGroup().id))]",
+        "web2PublicIpName" : "[concat('webip2', uniqueString(resourceGroup().id))]",
+        "nsgName" : "[concat('nsg', uniqueString(resourceGroup().id))]",
+        "webNic1Name" :"[concat('web1Nic', uniqueString(resourceGroup().id))]",
+        "webNic2Name" :"[concat('web2Nic', uniqueString(resourceGroup().id))]",
+        "avsetName" : "[concat('avsetName', uniqueString(resourceGroup().id))]"
     },
     "resources": [
         {
