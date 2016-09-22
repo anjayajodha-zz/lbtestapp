@@ -30,5 +30,8 @@ npm install
 #install forever to start node in background
 npm install -g forever
 
+#stop node
+forever stop 0
+
 #Start app
 forever start server.js

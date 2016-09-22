@@ -43,7 +43,7 @@ describe('nonexistent', function() {
             done();
         });
     });
-    it('host 2 nonexistent should return 200', function (done) {
+    it('host 2 nonexistent should return 404', function (done) {
         http.get('http://' + ipaddr[1].ipAddress + ':8081/nonexistent', function (res) {
             assert.equal(404, res.statusCode);
             done();

@@ -1,0 +1,18 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachines_webvm1_adminPassword": {
+            "value": "ciK3YkuDPbaHRmLi"
+        },
+        "virtualMachines_webvm2_adminPassword": {
+            "value": "CohM23WJ9jzQ1Bsk"
+        },
+        "storageEndpoint": {
+            "value" : "blob.azurestack.local"
+        },
+        "location": {
+           "value" : "local"
+        }
+    }
+}
