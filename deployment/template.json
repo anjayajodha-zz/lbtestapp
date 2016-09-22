@@ -97,7 +97,7 @@
                         "disablePasswordAuthentication": false
                     },
                     "secrets": [],
-                    "adminPassword": "[variables('virtualMachines_webvm1_adminPassword')]"
+                    "adminPassword": "[parameters('virtualMachines_webvm1_adminPassword')]"
                 },
                 "networkProfile": {
                     "networkInterfaces": [
@@ -151,7 +151,7 @@
                         "disablePasswordAuthentication": false
                     },
                     "secrets": [],
-                    "adminPassword": "[variables('virtualMachines_webvm2_adminPassword')]"
+                    "adminPassword": "[parameters('virtualMachines_webvm2_adminPassword')]"
                 },
                 "networkProfile": {
                     "networkInterfaces": [
