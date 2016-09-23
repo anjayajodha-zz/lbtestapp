@@ -75,4 +75,4 @@ fi
 
 #Start deployment
 echo "Starting deployment..."
-azure group deployment create --name $deploymentName --resource-group $resourceGroupName --template-file $templateFilePath --parameters-file $parametersFilePath
+azure group deployment create --name $deploymentName --resource-group $resourceGroupName --template-file $templateFilePath --parameters-file $parametersFilePath --mode "Complete"
