@@ -195,7 +195,7 @@
                         "properties": {
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIPAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('loadBalancerIpName')]"
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('loadBalancerIpName'))]"
                             }
                         }
                     }
@@ -245,7 +245,7 @@
             },
             "resources": [],
             "dependsOn": [
-                "[resourceId('Microsoft.Network/publicIPAddresses', variables('loadBalancerIpName')]"
+                "[resourceId('Microsoft.Network/publicIPAddresses', variables('loadBalancerIpName'))]"
             ]
         },
         {
