@@ -10,3 +10,5 @@ mocha ./test/publictest.js
 azure group delete -n lbapp$BUILD_NUMBER -q
 ./deploy.sh -t "72278c0d-4491-4d7e-a9d8-96fe9aa648b9" -p productionrg -l "westus" -q proddeployment$BUILD_NUMBER
 mocha ./test/prodtest.js
+
+#pushtobuild

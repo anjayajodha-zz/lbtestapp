@@ -20,7 +20,7 @@ apt-get -qq install -y git
 
 #Clone Repo
 
-git clone https://github.com/anjayajodha/lbtestapp.git /lbtestapp
+git clone https://192.168.102.9/root/demowebapp.git /lbtestapp
 
 cd /lbtestapp
 
@@ -31,7 +31,7 @@ npm install
 npm install -g forever
 
 #stop node
-forever stop 0
+killall nodejs
 
 #Start app
 forever start server.js
