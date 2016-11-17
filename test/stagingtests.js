@@ -36,6 +36,7 @@ describe('nonexistent', function() {
 describe('home', function() {
     it('host 1 home should return 200', function (done) {
         http.get('http://' + ipaddr[0].ipAddress + ':8081/', function (res) {
+            console.log('Endpoint is: ' + ipaddr[0].ipAddress + ':8081/');
             assert.equal(200, res.statusCode);
             done();
         });

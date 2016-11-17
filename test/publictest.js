@@ -7,8 +7,8 @@ describe('app', function() {
 });
 
 describe('hostname', function() {
-    it('host 1 hostname should return 200', function (done) {
-        http.get('http://' + ipaddr[0].ipAddress + ':8081/hostname', function (res) {
+    it('load balanced site should return 200', function (done) {
+        http.get('http://' + ipaddr[0].ipAddress + '/hostname', function (res) {
             assert.equal(200, res.statusCode);
             done();
         });
@@ -16,8 +16,8 @@ describe('hostname', function() {
 });
 
 describe('ip', function() {
-    it('host 1 ip should return 200', function (done) {
-        http.get('http://' + ipaddr[0].ipAddress + ':8081/ip', function (res) {
+    it('load balanced site ip should return 200', function (done) {
+        http.get('http://' + ipaddr[0].ipAddress + '/ip', function (res) {
             assert.equal(200, res.statusCode);
             done();
         });
@@ -25,8 +25,8 @@ describe('ip', function() {
 });
 
 describe('nonexistent', function() {
-    it('host 1 nonexistent should return 404', function (done) {
-        http.get('http://' + ipaddr[0].ipAddress + ':8081/nonexistent', function (res) {
+    it('load balanced site nonexistent should return 404', function (done) {
+        http.get('http://' + ipaddr[0].ipAddress + '/nonexistent', function (res) {
             assert.equal(404, res.statusCode);
             done();
         });
@@ -34,10 +34,11 @@ describe('nonexistent', function() {
 });
 
 describe('home', function() {
-    it('host 1 home should return 200', function (done) {
-        http.get('http://' + ipaddr[0].ipAddress + ':8081/', function (res) {
+    it('load balanced site home should return 200', function (done) {
+        http.get('http://' + ipaddr[0].ipAddress + '/', function (res) {
+            console.log('Endpoint is: ' + ipaddr[0].ipAddress)
             assert.equal(200, res.statusCode);
             done();
         });
-    }); 
+    });
 });

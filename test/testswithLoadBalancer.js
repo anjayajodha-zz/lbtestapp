@@ -36,6 +36,7 @@ describe('nonexistent', function() {
 describe('home', function() {
     it('load balanced site home should return 200', function (done) {
         http.get('http://' + ipaddr[0].ipAddress + '/', function (res) {
+            console.log('Endpoint is: ' + ipaddr[0].ipAddress)
             assert.equal(200, res.statusCode);
             done();
         });
