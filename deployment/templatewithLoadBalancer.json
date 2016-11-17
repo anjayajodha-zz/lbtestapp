@@ -37,7 +37,7 @@
         "nsgName" : "[concat('nsg', uniqueString(resourceGroup().id))]",
         "webNic1Name" :"[concat('web1Nic', uniqueString(resourceGroup().id))]",
         "webNic2Name" :"[concat('web2Nic', uniqueString(resourceGroup().id))]",
-        "avsetName" : "[concat('avset', uniqueString(resourceGroup().id))]",
+        "avsetName" : "[concat('avsetName', uniqueString(resourceGroup().id))]",
         "loadBalancerName" : "[concat('loadBalancer', uniqueString(resourceGroup().id))]",
         "loadBalancerIpName" : "[concat('loadBalancerIp', uniqueString(resourceGroup().id))]",
         "storageAccountType" : "Standard_LRS"
@@ -412,7 +412,7 @@
             "properties": {
             "publisher": "Microsoft.OSTCExtensions",
             "type": "CustomScriptForLinux",
-            "typeHandlerVersion": "1.3",
+            "typeHandlerVersion": "1.5",
                 "settings": {
                     "fileUris":  ["https://raw.githubusercontent.com/anjayajodha/lbtestapp/master/scripts/deploysite.sh"],
                     "commandToExecute": "sh deploysite.sh"
@@ -430,7 +430,7 @@
             "properties": {
             "publisher": "Microsoft.OSTCExtensions",
             "type": "CustomScriptForLinux",
-            "typeHandlerVersion": "1.3",
+            "typeHandlerVersion": "1.5",
                 "settings": {
                     "fileUris":  ["https://raw.githubusercontent.com/anjayajodha/lbtestapp/master/scripts/deploysite.sh"],
                     "commandToExecute": "sh deploysite.sh"
