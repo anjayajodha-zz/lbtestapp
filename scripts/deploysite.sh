@@ -20,7 +20,7 @@ apt-get -qq install -y git
 
 #Clone Repo
 
-git clone https://192.168.102.9/root/demowebapp.git /lbtestapp
+git clone https://github.com/anjayajodha/lbtestapp.git /lbtestapp
 
 cd /lbtestapp
 
