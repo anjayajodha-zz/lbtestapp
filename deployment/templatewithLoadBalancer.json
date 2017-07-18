@@ -1,32 +1,7 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {
-        "virtualMachines_webvm1_adminPassword": {
-            "defaultValue": null,
-            "type": "securestring"
-        },
-        "virtualMachines_webvm2_adminPassword": {
-            "defaultValue": null,
-            "type": "securestring"
-        },
-        "storageEndpoint": {
-            "defaultValue": "blob.azurestack.local",
-            "allowedValues": [
-                "blob.azurestack.local",
-                "blob.core.windows.net"
-            ],
-            "type": "string"
-        },
-        "location": {
-            "defaultValue": "westus",
-            "allowedValues" : [
-                "local",
-                "westus"
-            ],
-            "type": "string"
-        }
-    },
+    "parameters": {    },
     "variables": {
         "storageAccountName" : "[concat('storage', uniqueString(resourceGroup().id))]",
         "webVm1Name" : "[concat('weblayer1', uniqueString(resourceGroup().id))]",
@@ -40,14 +15,17 @@
         "avsetName" : "[concat('avsetName', uniqueString(resourceGroup().id))]",
         "loadBalancerName" : "[concat('loadBalancer', uniqueString(resourceGroup().id))]",
         "loadBalancerIpName" : "[concat('loadBalancerIp', uniqueString(resourceGroup().id))]",
-        "storageAccountType" : "Standard_LRS"
+        "storageAccountType" : "Standard_LRS",
+        "webVm1Password" : "[uniqueString(resourceGroup().id)]",
+        "webVm2Password" : "[uniqueString(resourceGroup().id)]",
+        "nametoknow":"hello"
     },
     "resources": [
         {
             "type": "Microsoft.Compute/availabilitySets",
             "name": "[variables('avsetName')]",
             "apiVersion": "2015-06-15",
-            "location": "[parameters('location')]",
+            "location": "[resourceGroup().location]",
             "properties": {
                 "platformUpdateDomainCount": 1,
                 "platformFaultDomainCount": 1
@@ -59,7 +37,7 @@
             "type": "Microsoft.Storage/storageAccounts",
             "name": "[variables('storageAccountName')]",
             "apiVersion": "2015-06-15",
-            "location": "[parameters('location')]",
+            "location": "[resourceGroup().location]",
             "properties": {
                 "accountType": "[variables('storageAccountType')]"
             }
@@ -68,7 +46,7 @@
             "type": "Microsoft.Compute/virtualMachines",
             "name": "[variables('webVm1Name')]",
             "apiVersion": "2015-06-15",
-            "location": "[parameters('location')]",
+            "location": "[resourceGroup().location]",
             "properties": {
                 "availabilitySet": {
                     "id": "[resourceId('Microsoft.Compute/availabilitySets', variables('avsetName'))]"
@@ -80,14 +58,14 @@
                     "imageReference": {
                         "publisher": "Canonical",
                         "offer": "UbuntuServer",
-                        "sku": "14.04.3-LTS",
+                        "sku": "16.04-LTS",
                         "version": "latest"
                     },
                     "osDisk": {
                         "name": "[variables('webVm1Name')]",
                         "createOption": "FromImage",
                         "vhd": {
-                            "uri": "[concat('https://',variables('storageAccountName'),'.',parameters('storageEndpoint'),'/vhds/', variables('webVm1Name'),'osdisk.vhd')]"
+                            "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob, variables('webVm1Name'),'/', 'osdisk', '.vhd')]"
                         },
                         "caching": "ReadWrite"
                     },
@@ -100,7 +78,7 @@
                         "disablePasswordAuthentication": false
                     },
                     "secrets": [],
-                    "adminPassword": "[parameters('virtualMachines_webvm1_adminPassword')]"
+                    "adminPassword": "[variables('webVm1Password')]"
                 },
                 "networkProfile": {
                     "networkInterfaces": [
@@ -122,7 +100,7 @@
             "type": "Microsoft.Compute/virtualMachines",
             "name": "[variables('webVm2Name')]",
             "apiVersion": "2015-06-15",
-            "location": "[parameters('location')]",
+            "location": "[resourceGroup().location]",
             "properties": {
                 "availabilitySet": {
                     "id": "[resourceId('Microsoft.Compute/availabilitySets', variables('avsetName'))]"
@@ -134,14 +112,14 @@
                     "imageReference": {
                         "publisher": "Canonical",
                         "offer": "UbuntuServer",
-                        "sku": "14.04.3-LTS",
+                        "sku": "16.04-LTS",
                         "version": "latest"
                     },
                     "osDisk": {
                         "name": "[variables('webVm2Name')]",
                         "createOption": "FromImage",
                         "vhd": {
-                            "uri": "[concat('https://',variables('storageAccountName'),'.',parameters('storageEndpoint'),'/vhds/', variables('webVm2Name'),'osdisk.vhd')]"
+                            "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob, variables('webVm2Name'),'/', 'osdisk', '.vhd')]"
                         },
                         "caching": "ReadWrite"
                     },
@@ -154,7 +132,7 @@
                         "disablePasswordAuthentication": false
                     },
                     "secrets": [],
-                    "adminPassword": "[parameters('virtualMachines_webvm2_adminPassword')]"
+                    "adminPassword": "[variables('webVm2Password')]"
                 },
                 "networkProfile": {
                     "networkInterfaces": [
@@ -175,7 +153,7 @@
             "type": "Microsoft.Network/loadBalancers",
             "name": "[variables('loadBalancerName')]",
             "apiVersion": "2015-06-15",
-            "location": "[parameters('location')]",
+            "location": "[resourceGroup().location]",
             "properties": {
                 "frontendIPConfigurations": [
                     {
@@ -241,7 +219,7 @@
             "type": "Microsoft.Network/networkInterfaces",
             "name": "[variables('webNic1Name')]",
             "apiVersion": "2015-06-15",
-            "location": "[parameters('location')]",
+            "location": "[resourceGroup().location]",
             "properties": {
                 "ipConfigurations": [
                     {
@@ -279,7 +257,7 @@
             "type": "Microsoft.Network/networkInterfaces",
             "name": "[variables('webNic2Name')]",
             "apiVersion": "2015-06-15",
-            "location": "[parameters('location')]",
+            "location": "[resourceGroup().location]",
             "properties": {
                 "ipConfigurations": [
                     {
@@ -318,7 +296,7 @@
             "type": "Microsoft.Network/networkSecurityGroups",
             "name": "[variables('nsgName')]",
             "apiVersion": "2015-06-15",
-            "location": "[parameters('location')]",
+            "location": "[resourceGroup().location]",
             "properties": {
                 "securityRules": [
                     {
@@ -369,7 +347,7 @@
             "type": "Microsoft.Network/publicIPAddresses",
             "name": "[variables('loadBalancerIpName')]",
             "apiVersion": "2015-06-15",
-            "location": "[parameters('location')]",
+            "location": "[resourceGroup().location]",
             "properties": {
                 "publicIPAllocationMethod": "Dynamic",
                 "idleTimeoutInMinutes": 4
@@ -382,7 +360,7 @@
             "type": "Microsoft.Network/virtualNetworks",
             "name": "[variables('vNetName')]",
             "apiVersion": "2015-06-15",
-            "location": "[parameters('location')]",
+            "location": "[resourceGroup().location]",
             "properties": {
                 "addressSpace": {
                     "addressPrefixes": [
