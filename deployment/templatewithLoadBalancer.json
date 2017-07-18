@@ -16,8 +16,8 @@
         "loadBalancerName" : "[concat('loadBalancer', uniqueString(resourceGroup().id))]",
         "loadBalancerIpName" : "[concat('loadBalancerIp', uniqueString(resourceGroup().id))]",
         "storageAccountType" : "Standard_LRS",
-        "webVm1Password" : "[uniqueString(resourceGroup().id)]",
-        "webVm2Password" : "[uniqueString(resourceGroup().id)]",
+        "webVm1Password" : "ciK3YkuDPbaHRmLi",
+        "webVm2Password" : "CohM23WJ9jzQ1Bsk",
         "nametoknow":"hello"
     },
     "resources": [

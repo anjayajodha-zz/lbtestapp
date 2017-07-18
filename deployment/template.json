@@ -13,8 +13,8 @@
         "webNic1Name" :"[concat('web1Nic', uniqueString(resourceGroup().id))]",
         "webNic2Name" :"[concat('web2Nic', uniqueString(resourceGroup().id))]",
         "avsetName" : "[concat('avsetName', uniqueString(resourceGroup().id))]",
-        "webVm1Password" : "[uniqueString(resourceGroup().id)]",
-        "webVm2Password" : "[uniqueString(resourceGroup().id)]",
+        "webVm1Password" : "ciK3YkuDPbaHRmLi",
+        "webVm2Password" : "CohM23WJ9jzQ1Bsk",
         "storageAccountType" : "Standard_LRS"
     },
     "resources": [
